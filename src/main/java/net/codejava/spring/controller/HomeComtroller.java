@@ -32,29 +32,31 @@ public class HomeComtroller {
 //	  }
 //	  
 	@RequestMapping(value = {"/","/viewemp"})
-	public ModelAndView Index() {
-		ModelAndView mv = new ModelAndView("home1");
-		List<Contact> listContact = contactDAO.list();
-		mv.addObject("listContact", listContact);
-		return mv;
+	public ModelAndView Index() { 
+		return new ModelAndView("redirect:/viewemp/1");
 	}
 
 	@RequestMapping(value = "/viewemp/{pageid}")
-	public ModelAndView Index1(@PathVariable int pageid) {		
-		int total = 3;
-		int page = pageid;
-		if (pageid != 1) {
-			pageid = (pageid - 1) * total + 1;
-		}
-		System.out.println(pageid);
-		ModelAndView mv = new ModelAndView("home1");
-		List<Contact> listContact = contactDAO.getContactByPage(pageid, total);
-		mv.addObject("listContact", listContact);
-		mv.addObject("page", page);
-		mv.addObject("num", total);
-		mv.addObject("total", contactDAO.list().size());
-
-		return mv;
+	public ModelAndView Index1(@PathVariable String pageid) {	
+		try {
+			int total = 3;
+			int page = Integer.parseInt(pageid);
+			int pageNum = page;
+			if (pageNum != 1) {
+				pageNum = (pageNum - 1) * total + 1;
+			}
+			System.out.println(pageid);
+			ModelAndView mv = new ModelAndView("home1");
+			List<Contact> listContact = contactDAO.getContactByPage(pageNum, total);
+			mv.addObject("listContact", listContact);
+			mv.addObject("page", page);
+			mv.addObject("num", total);
+			mv.addObject("total", contactDAO.list().size());
+			
+			return mv;
+		}catch(NumberFormatException ex) {
+			return new ModelAndView("redirect:/");
+		}	
 	}
 
 	@RequestMapping(value = "/newContact", method = RequestMethod.GET)
