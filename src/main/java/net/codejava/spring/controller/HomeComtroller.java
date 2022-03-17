@@ -36,13 +36,13 @@ public class HomeComtroller {
 		ModelAndView mv = new ModelAndView("home1");
 		List<Contact> listContact = contactDAO.list();
 		mv.addObject("listContact", listContact);
-
 		return mv;
 	}
 
 	@RequestMapping(value = "/viewemp/{pageid}")
 	public ModelAndView Index1(@PathVariable int pageid) {		
 		int total = 3;
+		int page = pageid;
 		if (pageid != 1) {
 			pageid = (pageid - 1) * total + 1;
 		}
@@ -50,6 +50,9 @@ public class HomeComtroller {
 		ModelAndView mv = new ModelAndView("home1");
 		List<Contact> listContact = contactDAO.getContactByPage(pageid, total);
 		mv.addObject("listContact", listContact);
+		mv.addObject("page", page);
+		mv.addObject("num", total);
+		mv.addObject("total", contactDAO.list().size());
 
 		return mv;
 	}
