@@ -68,7 +68,7 @@ public class HomeComtroller {
 	@RequestMapping(value = "/saveContact", method = RequestMethod.POST)
 	public ModelAndView saveContact(@ModelAttribute Contact contact) {
 		contactDAO.saveOrUpdate(contact);
-		return new ModelAndView("redirect:/");
+		return new ModelAndView("redirect:/viewemp/1");
 	}
 
 	@RequestMapping(value = "/deleteContact", method = RequestMethod.GET)

@@ -13,8 +13,25 @@ table {
 }
 
 th, td {
-	padding: 10px
+	padding: 10px;
+	
 }
+.contai{
+	justify-content: center;
+	display: flex;
+	margin-top: 40px;
+}
+.link{
+	width: 30px;
+	display: block;
+	padding: 15px;
+	background-color: pink;
+	float: left;
+	margin: 0px 20px;
+	text-decoration: none;
+}
+.link:hover{
+opacity: 0.6}
 </style>
 </head>
 <body>
@@ -47,15 +64,18 @@ th, td {
 				</tr>
 			</c:forEach>
 		</table>
+		<div class='contai'>
 		<c:if test="${page > 1}">
-			<a href="<c:url value="/viewemp/${page-1}"></c:url>">${page-1}</a>
+			<a class='link' href="<c:url value="/viewemp/${page-1}"></c:url>">${page-1}</a>
 		</c:if>
 
-		<a href="<c:url value="/viewemp/${page}"></c:url>">${page}</a>
+		<a class='link' href="<c:url value="/viewemp/${page}"></c:url>">${page}</a>
 		
-		<c:if test="${page * num <= total}">
-			<a href="<c:url value="/viewemp/${page+1}"></c:url>">${page+1}</a>
+		<c:if test="${page * num < total}">
+			<a class='link' href="<c:url value="/viewemp/${page+1}"></c:url>">${page+1}</a>
 		</c:if>
+		</div>
+		
 	</div>
 </body>
 </html>
